@@ -1,0 +1,639 @@
+@charset "UTF-8";
+/* 기본 설정 및 공용 스타일 */
+* {
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    margin: 0;
+}
+/* 드래그 방지 */
+.no_drag {
+	-ms-user-select: none;
+	-moz-user-select: -moz-none; 
+	-webkit-user-select: none; 
+	-khtml-user-select: none; 
+	user-select:none;
+}
+/* 빈공간 영역 */
+.blank_area {
+	height: 60px;
+}
+/* 왼쪽 content 영역 슬림스크롤 스타일 */
+.content_wrap>.slimScrollDiv {
+	display:inline-block;
+	width: calc(100% - 300px) !important;
+}
+.content_wrap>.slimScrollDiv>.slimScrollBarY {
+	visibility: hidden;
+}
+
+
+/* 전체 영역 감싸기 */
+.wrapper {
+    width: 100%;
+    height: 100%;
+}
+/* 상단부 */
+.top_area {
+	width: 100%;
+	min-width: 600px;
+	height: 60px;
+	
+	background-color: #6c6c6c;
+}
+/* TL */
+.top_left {
+	display: inline-block;
+	width: 50%;
+	height: 100%;
+	vertical-align:top;
+}
+.top_left>div {
+	display: inline-block;
+	height: 60px;
+	line-height: 60px;
+	vertical-align: middle;
+	text-align: left;
+	margin-left: 30px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+}
+/* TR */
+.top_right {
+	display: inline-block;
+	width:50%;
+	height: 100%;
+	vertical-align:middle;
+	text-align: right;
+}
+.top_right>div {
+	display: inline-block;
+	height: 60px;
+	line-height: 60px;
+	vertical-align: middle;
+	text-align: right;
+	margin-right: 30px;
+}
+
+/* Content 영역 */
+.content_wrap {
+	width: 100%;
+	height: calc(100% - 60px);
+	
+	background-color: #eeeeee;
+}
+/* 가로 100% content 영역 */
+.full_content {
+	max-width: 800px;
+	min-width: 600px;
+	height: 100%;
+	margin: 0 auto;
+	padding: 20px;
+	
+	background-color: #ffffff;
+	text-align: center;
+}
+/* full content 제목 */
+.full_content_title {
+	height: 70px;
+	line-height: 70px;
+	vertical-align: middle;
+	
+	font-size: 30px;
+	font-weight: 900;
+	color: #272727;
+}
+/* full content 부제목 및 comment */
+.full_content_subtitle {
+	height: 50px;
+	line-height: 50px;
+	vertical-align: middle;
+	
+	font-size: 13px;
+	font-weight: 300;
+	color: #272727;
+}
+/* content 메뉴와 내용 영역 구분 */
+/* CL - 내용 */
+.content_left {
+	display: inline-block;
+	width: calc(100% - 300px);
+	height: 100%;
+	
+	background-color: #ffffff;
+}
+/* CR - 메뉴 */
+.content_right {
+	display: inline-block;
+	width: 300px;
+	height: 100%;
+	vertical-align: top;
+	background-color : #6c6c6c;
+}
+
+/* CR 영역에 포함되는 영역 */
+/* 프로필 영역 */
+.profile_area {
+	height: 200px;
+}
+.profile_area>div {
+	display: inline-block;
+	width: 120px;
+	height: 120px;
+	border-radius: 60px;
+	
+	position: relative;
+	top: 70px;
+	left: -60px;
+}
+/* 메뉴 영역 */
+.menu_area {
+	height: calc(100% - 407px);
+}
+.menu_area>div>div {
+    display:inline-block;
+    margin-right: 50px;
+}
+/* 메뉴 비활성화 */
+.menu {
+    height: 60px;
+    line-height: 60px;
+    font-size: 18px;
+    color: #979797;
+
+    text-align: right;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.menu:hover {
+    color: #dddddd;
+}
+/* 메뉴 활성화 */
+.menu_on {
+    height: 60px;
+    line-height: 60px;
+    font-size: 18px;
+    color: #ffffff !important;
+
+    text-align: right;
+    vertical-align: middle;
+    cursor: pointer;
+}
+/* 메뉴 하단부 */
+.menu_footer {
+	height: 207px;
+}
+
+
+/* CL 영역에 포함되는 영역 */
+/* 블로그 리스트 블록 */
+.list_block {
+	display:inline-block;
+	width: 25%;
+	cursor: pointer;
+	vertical-align: bottom;
+	position: relative;
+}
+/* 블로그 리스트 텍스트 영역*/
+.list_text_area {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	overflow: hidden;
+	
+	background-color: #00000099;
+}
+/* 블로그 리스트 -> 블로그 제목 */
+.list_text_area>.list_title {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	vertical-align: middle; 
+	padding: 10px 20px;
+	
+	font-size: 18px;
+	font-weight: 800;
+	color: #ffffff;
+}
+/* 블로그 리스트 -> 블로그 설명 */
+.list_text_area>.list_comment {
+	width: 100%;
+	height: 40px;
+	padding: 20px 20px;
+	
+	font-size: 12px;
+	font-weight: 300;
+	color: #ffffff;
+	white-space: normal;
+	word-break: break-all;
+	text-overflow: ellipsis;
+}
+
+/* 셋팅 페이지 감싸기 */
+.profileEdit_wrap {
+	width: 700px;
+	height: 100%;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+/*------------------------------------------------------ Post -------------------------------------------------------------------- */
+/* post 및 write 감싸기 */
+.post_wrap, .write_wrap {
+	width: 100%;
+	padding: 60px;
+}
+/* post category text */
+.post_cate {
+	display: inline-block;
+	font-size: 20px;
+	font-weight: 700;
+	color: #272727;
+	cursor: pointer;
+	margin-bottom : 10px;
+}
+.post_cate:hover {
+	text-decoration: underline;
+}
+/* post title text */
+.post_title {
+	display:inline-block;
+	width: 50%;
+	font-size: 30px;
+	font-weight: 300;
+	color: #272727;
+	margin-bottom : 10px;
+	overflow: hidden;
+	white-space: nowrap;
+	vertical-align: top;
+}
+/* post btn -> 추가, 수정, 삭제 */
+.post_btn_area {
+	display: inline-block;
+	width: 50%;
+	height: 45px;
+	line-height: 45px;
+	margin-bottom : 10px;
+	vertical-align: middle;
+	text-align: right;
+}
+/* 구분선 */
+.bar {
+	color: #dddddd;
+	padding: 0px 10px;
+	font-size: 10px;
+}
+/* post 작성일 */
+.post_date {
+	font-size: 13px;
+	font-weight: 400;
+	color: #BBBBBB;
+	padding-bottom : 20px;
+	border-bottom: 1px solid #dddddd;
+	overflow: hidden;
+	white-space: nowrap;
+}
+/* post 작성자 및 작성일 */
+.post_writer, .post_datetime {
+	display: inline-block;
+}
+/* post 내용 */
+.post_content {
+	padding: 20px 0px;
+	font-size: 20px;
+	font-weight: 300px;
+	color: #272727;
+}
+/* post 리스트 */
+.post_list {
+	padding: 20px;
+	background-color: #272727;
+}
+/* post list table */
+.post_table {
+	width: 100%;
+	border: 0px;
+}
+/* post table의 post title */
+.post_list_title {
+	font-size: 15px;
+	font-weight: 700;
+	color: #ffffff;
+	margin-bottom: 30px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+/* post 영역 숨기기 */
+.post_hidden {
+	display: none !important;
+}
+/* post list table 의 tr */
+.list_tr {
+	height: 30px;
+	cursor: pointer;
+}
+/* post list table -> tr -> td */
+.list_tr>td {
+	font-size: 13px;
+	font-weight: 400;
+	color: #ffffff;
+	overflow: hidden;
+	white-space: nowrap;
+}
+/* post list table의 작성일 */
+.b_date {
+	text-align: right;
+}
+/* comment의 개수 text */
+.comment_cnt {
+	color: #bbbbbb;
+	font-weight: 300;
+}
+
+/* -------------------------------------------------------- Paging --------------------------------------------- */
+/* 다음, 이전 버튼 */
+.pre_next_btn {
+	display: inline-block;
+	width: 12.5%;
+	height: 30px;
+	cursor: pointer;
+	text-align: center;
+	vertical-align: top;
+	background-color: #272727;
+}
+.pre_next_btn:hover {
+	background-color: #686868;
+}
+/* paging 숫자 버튼 */
+.paging_btn {
+	display: inline-block;
+	width: 10%;
+	height: 30px;
+	line-height: 30px;
+	cursor: pointer;
+	vertical-align: middle;
+	text-align: center;
+	
+	font-size: 13px;
+	font-weight: 300;
+	color: #ffffff;
+	background-color: #272727;
+}
+/* paging 숫자 선택된 스타일 */
+.paging_btn_select {
+	display: inline-block;
+	width: 10%;
+	height: 30px;
+	line-height: 30px;
+	cursor: pointer;
+	vertical-align: middle;
+	text-align: center;
+	
+	font-size: 13px;
+	font-weight: 300;
+	color: #ffffff;
+	background-color: #336E7B;
+}
+.paging_btn:hover {
+	background-color: #26525B;
+}
+/* -------------------------------------------------------- Comment --------------------------------------------- */
+/* 댓글 타이틀 영역 -> 댓글 개수 */
+.comment_title {
+	font-size: 30px;
+	font-weight: 500;
+	color: #272727;
+	margin-bottom: 50px;
+}
+/* comment 각각의 div */
+.comments>div {
+	padding: 20px 0px;
+	border-bottom: 1px solid #bbbbbb;
+}
+/* comment 작성자, 작성일 */
+.comment_div {
+	height: 30px;
+	margin-bottom: 10px;
+}
+/* 작성자, 작성일 이등분 */
+.comment_div>div {
+	display: inline-block;
+	width: 50%;
+	text-align: left;
+	font-size: 18px;
+	font-weight: 500;
+	color: #272727;
+}
+/* comment 작성일 */
+.comment_date {
+	font-size: 15px;
+	font-weight: 300;
+	color: #bbbbbb;
+}
+/* comment 내용 */
+.comment_con {
+	font-size: 18px;
+	font-weight: 300;
+	color: #272727;
+}
+/* comment 버튼 영역 - 삭제 버튼 */
+.comment_btn_area {
+	text-align: right !important;
+}
+/* comment 작성 영역 */
+.comment_write {
+	width: 100%;
+	height: 150px;
+	margin-top: 20px;
+}
+/* comment 작성 영역 왼쪽 */
+.com_wt_left {
+	display: inline-block;
+	width: 85%;
+	height: 100%;
+	padding: 15px;
+	padding-left: 0px !important;
+	vertical-align: top;
+}
+/* comment 작성 영역 오른쪽 */
+.com_wt_right {
+	display: inline-block;
+	width: 15%;
+	height: 100%;
+	padding: 15px;
+	padding-right: 0px !important;
+}
+/* -------------------------------------------------------- Post Write --------------------------------------------- */
+/* post 작성 상단부 */
+.write_top {
+	height: 60px;
+}
+/* post 작성 내용부 */
+.write_content {
+	margin-top: 20px;
+}
+/* post 작성 하단부 */
+.write_bottom {
+	height: 50px;
+	line-height: 50px;
+	vertical-align: middle;
+	text-align: right;
+	margin-top: 20px;
+}
+/* post 카테고리 선택 포지션 용 */
+.select_cate {
+	position: absolute;
+	z-index: 70;
+}
+/* post 카테고리 선택 감싸기 */
+.select_cate>div {
+	display: inline-block;
+	width: 500px;
+	height: 70px;
+	
+	border: 1px solid #cccccc;
+	background-color: #ffffff;
+	box-shadow: 0px 0px 6px #B2B2B2;
+	
+	position: relative;
+	top: -110px;
+    left: -440px;
+}
+/* 카테고리 선택 제목 */
+.sce_name {
+	display:inline-block;
+	width: 12%;
+	height: 70px;
+	line-height: 70px;
+	vertical-align: middle;
+	text-align:center;
+	
+	font-size: 15px;
+	font-weight: 400;
+	color: #272727;
+}
+/* 카테고리 선택 select box 영역 */
+.sce_dropdown {
+	display:inline-block;
+	width: 70%;
+	height: 70px;
+	line-height: 70px;
+	vertical-align: middle;
+	text-align:center;
+	padding: 20px 10px;
+	
+}
+/* 카테고리 선택 확인 버튼 영역 */
+.cate_btn_area {
+	display:inline-block;
+	width: 15%;
+	height: 70px;
+	line-height: 70px;
+	vertical-align: middle;
+	text-align:center;
+}
+
+
+/* -------------------------------------------- validator 관련 CSS -------------------------------- */
+.validator_area {
+	position: absolute;
+	width:0;
+	height:0;
+}
+/* 유효성 말풍선 - :: after 까지 한 세트*/
+.validator-bubble {
+    height: 60px;
+    line-height: 60px;
+    vertical-align: middle;
+    position: relative;
+    top: -6px;
+    left: 765px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 6px #B2B2B2;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+    color: #FF4848;
+    z-index: 80;
+}
+.validator-bubble::after {
+	box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+   	background-color: #ffffff;
+   	content: "\00a0";
+   	display: block;
+   	height: 15px;
+   	left: -7px;
+   	position: relative;
+   	top: -37px;
+   	transform: rotate( 45deg );
+   	-moz-transform: rotate( 45deg );
+   	-ms-transform: rotate( 45deg );
+   	-o-transform: rotate( 45deg );
+   	-webkit-transform: rotate( 45deg );
+   	width: 15px;
+}
+
+/* -------------------------------------------- Login 관련 CSS -------------------------------- */
+/* Login 영역 말풍선 */
+#login_area {
+	display: none;
+	width: 300px;
+	height: 130px;
+	padding: 10px;
+    vertical-align: middle;
+	position: absolute;
+	top: 65px;
+	right: 30px;
+	background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 6px #B2B2B2;
+    text-align: center;
+    z-index: 100;
+    line-height: 0px;
+}
+#login_area::after {
+	box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+    background-color: #ffffff;
+    content: "\00a0";
+    display: block;
+    height: 15px;
+    left: 257px;
+    position: relative;
+    top: -128px;
+    transform: rotate( 135deg );
+    -moz-transform: rotate( 135deg );
+    -ms-transform: rotate( 135deg );
+    -o-transform: rotate( 135deg );
+    -webkit-transform: rotate( 135deg );
+    width: 15px;
+}
+/* 상단바 버튼 활성화 시 */
+.btn_top_on {
+	color: #ffffff !important;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    vertical-align: top;
+    border: 1px solid #ffffff !important;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: 300;
+}
+/* 로그인 팝업 닫기 */
+#login_area_close {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 60;
+}
