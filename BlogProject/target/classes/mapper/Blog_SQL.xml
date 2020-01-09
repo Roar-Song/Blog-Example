@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blog">
+	<!-- 아이디 중복 체크 -->
+	<select id="idCheck" resultType="Integer" parameterType="hashmap">
+		SELECT COUNT(*) AS CNT
+		FROM BLOG_USER
+		WHERE USER_ID = #{user_id}
+	</select>
+	
+	<!-- 회원가입 등록 -->
+	<insert id="insertUser" parameterType="hashmap">
+		INSERT INTO BLOG_USER(USER_NO, USER_ID, USER_PW, USER_EMAIL, USER_FB_ADD, USER_INSTA_ADD, USER_GIT_ADD)
+		VALUES (USER_SEQ.NEXTVAL, #{user_id}, #{user_pw1}
+		<choose>
+			<when test="user_email != null">, #{user_email}</when>
+			<otherwise>, NULL</otherwise>
+		</choose>
+		<choose>
+			<when test="user_fb != null">, #{user_fb}</when>
+			<otherwise>, NULL</otherwise>
+		</choose>
+		<choose>
+			<when test="user_insta != null">, #{user_insta}</when>
+			<otherwise>, NULL</otherwise>
+		</choose>
+		<choose>
+			<when test="user_git != null">, #{user_git}</when>
+			<otherwise>, NULL</otherwise>
+		</choose>
+		)
+	</insert>
+	
+	<!-- 로그인 회원정보 가져오기 -->
+	<select id="getUser" parameterType="hashmap" resultType="hashmap">
+		SELECT USER_NO, USER_ID
+		FROM BLOG_USER
+		WHERE USER_DEL_YN = 1
+		AND USER_ID = #{login_id} 
+		AND USER_PW = #{login_pw}
+	</select>
+	
+	<!-- 블로그 리스트 가져오기 -->
+	<select id="getBlogList" resultType="hashmap">
+		SELECT BU.USER_NO, BP.BLOG_NAME, BP.PROP_COMMENT
+		FROM BLOG_USER BU INNER JOIN BLOG_PROP BP
+               			  ON BU.USER_NO = BP.USER_NO
+               			  AND BU.USER_DEL_YN = 1
+        WHERE BP.DEL_YN = 1
+        ORDER BY BP.PROP_NO DESC
+	</select>
+	
+	<!-- 블로그 생성 여부 체크 -->
+	<select id="checkBlog" parameterType="hashmap" resultType="Integer">
+		SELECT BLOG_EDIT
+		FROM BLOG_USER
+		WHERE USER_NO = #{user_no}
+	</select>
+	
+	<!-- 사용자 개인 정보 가져오기 -->
+	<select id="getInfo" parameterType="hashmap" resultType="hashmap">
+		SELECT USER_ID, USER_EMAIL, USER_FB_ADD, USER_INSTA_ADD, USER_GIT_ADD
+		FROM BLOG_USER
+		WHERE USER_DEL_YN = 1
+		AND USER_NO = #{user_no}
+	</select>
+	
+	<!-- 사용자 개인정보 수정 -->
+	<update id="updateInfo" parameterType="hashmap">
+		UPDATE BLOG_USER
+		SET USER_PW = #{pw_chg}
+		, USER_EMAIL = <choose><when test="user_email != null">#{user_email}</when><otherwise>NULL</otherwise></choose>
+		, USER_FB_ADD = <choose><when test="user_fb != null">#{user_fb}</when><otherwise>NULL</otherwise></choose>
+		, USER_INSTA_ADD = <choose><when test="user_insta != null">#{user_insta}</when><otherwise>NULL</otherwise></choose>
+		, USER_GIT_ADD = <choose><when test="user_git != null">#{user_git}</when><otherwise>NULL</otherwise></choose>
+		WHERE USER_NO = #{user_no}
+	</update>
+	
+	<!-- 블로그 설정 정보 가져오기 -->
+	<select id="getProp" parameterType="hashmap" resultType="hashmap">
+		SELECT BLOG_NAME, PROP_COMMENT, DEL_YN, MENU1, MENU2, MENU3, MENU4, MENU5
+		FROM BLOG_PROP
+		WHERE USER_NO = #{blog_no}
+	</select>
+	
+	<!-- 블로그 설정 정보 작성 -->
+	<insert id="insertProp" parameterType="hashmap">
+		INSERT INTO BLOG_PROP(PROP_NO, USER_NO, BLOG_NAME, PROP_COMMENT, MENU1, MENU2, MENU3, MENU4, MENU5)
+		VALUES(PROP_SEQ.NEXTVAL, #{user_no}, #{blogName}, #{blogComment}
+		<choose><when test="user_menu1 != null">, #{user_menu1}</when><otherwise>, NULL</otherwise></choose>
+		<choose><when test="user_menu2 != null">, #{user_menu2}</when><otherwise>, NULL</otherwise></choose>
+		<choose><when test="user_menu3 != null">, #{user_menu3}</when><otherwise>, NULL</otherwise></choose>
+		<choose><when test="user_menu4 != null">, #{user_menu4}</when><otherwise>, NULL</otherwise></choose>
+		<choose><when test="user_menu5 != null">, #{user_menu5}</when><otherwise>, NULL</otherwise></choose>
+		)		
+	</insert>
+	<!-- 블로그 생성 상태 변경 -->
+	<update id="updateBE" parameterType="hashmap">
+		UPDATE BLOG_USER
+		SET BLOG_EDIT = 1
+		WHERE USER_NO = #{blog_no}
+	</update>
+	
+	<!-- 블로그 설정 정보 수정 -->
+	<update id="updateProp" parameterType="hashmap">
+		UPDATE BLOG_PROP
+		SET BLOG_NAME = #{blogName}, PROP_COMMENT = #{blogComment}
+		, MENU1 = <choose><when test="user_menu1 != null">#{user_menu1}</when><otherwise>NULL</otherwise></choose>
+		, MENU2 = <choose><when test="user_menu2 != null">#{user_menu2}</when><otherwise>NULL</otherwise></choose>
+		, MENU3 = <choose><when test="user_menu3 != null">#{user_menu3}</when><otherwise>NULL</otherwise></choose>
+		, MENU4 = <choose><when test="user_menu4 != null">#{user_menu4}</when><otherwise>NULL</otherwise></choose>
+		, MENU5 = <choose><when test="user_menu5 != null">#{user_menu5}</when><otherwise>NULL</otherwise></choose>
+		WHERE USER_NO = #{blog_no}
+	</update>
+	
+	<!-- POST 개수 가져오기 -->
+	<select id="getPostCnt" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(*) AS CNT
+		FROM BLOG_POST BP INNER JOIN BLOG_USER BU
+						  ON BP.USER_NO = BU.USER_NO
+						  AND BU.USER_DEL_YN = 1
+		WHERE BP.DEL_YN = 1 AND BU.USER_NO = #{blog_no}
+		<if test="menu_no != 0">
+			<choose>
+				<when test="menu_no eq 1">AND BP.POST_CATE = 1</when>
+				<when test="menu_no eq 2">AND BP.POST_CATE = 2</when>
+				<when test="menu_no eq 3">AND BP.POST_CATE = 3</when>
+				<when test="menu_no eq 4">AND BP.POST_CATE = 4</when>
+				<when test="menu_no eq 5">AND BP.POST_CATE = 5</when>
+			</choose>
+		</if>
+	</select>
+	
+	<!-- POST 리스트 가져오기 -->
+	<select id="getPost" parameterType="hashmap" resultType="hashmap">
+		SELECT T.POST_NO, T.POST_TITLE, T.POST_DT
+		FROM ( 	SELECT BP.POST_NO, BP.POST_TITLE, TO_CHAR(BP.POST_DATE, 'YYYY.MM.DD') AS POST_DT,
+              		   ROW_NUMBER() OVER(ORDER BY BP.POST_NO DESC) AS RNUM
+       			FROM BLOG_POST BP INNER JOIN BLOG_USER BU
+       				   ON BP.USER_NO = BU.USER_NO
+       				   AND BU.USER_DEL_YN = 1
+       			WHERE BP.DEL_YN = 1 AND BU.USER_NO = #{blog_no}
+				<if test="menu_no != 0">
+					<choose>
+						<when test="menu_no eq 1">AND BP.POST_CATE = 1</when>
+						<when test="menu_no eq 2">AND BP.POST_CATE = 2</when>
+						<when test="menu_no eq 3">AND BP.POST_CATE = 3</when>
+						<when test="menu_no eq 4">AND BP.POST_CATE = 4</when>
+						<when test="menu_no eq 5">AND BP.POST_CATE = 5</when>
+					</choose>
+				</if>
+       		) T
+		WHERE T.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+	
+	<!-- Post 데이터 가져오기 -->
+	<select id="getPostData" parameterType="hashmap" resultType="hashmap">
+		SELECT BP.POST_NO, BP.POST_TITLE, BP.POST_CON, TO_CHAR(BP.POST_DATE, 'YYYY.MM.DD HH:MM') AS POST_DT, BU.USER_ID, BP.POST_CATE
+		FROM BLOG_POST BP INNER JOIN BLOG_USER BU
+			   ON BP.USER_NO = BU.USER_NO
+		WHERE BP.POST_NO = #{post_no}
+	</select>
+	
+	<!-- Post 작성 -->
+	<insert id="insertPost" parameterType="hashmap">
+		INSERT INTO BLOG_POST(POST_NO, USER_NO, POST_TITLE, POST_CON, POST_CATE)
+		VALUES (POST_SEQ.NEXTVAL, #{user_no}, #{post_title}, #{post_con}, #{cate_no})
+	</insert>
+	
+	<!-- Post 수정 -->
+	<update id="updatePost" parameterType="hashmap">
+		UPDATE BLOG_POST
+		SET POST_TITLE = #{post_title}, POST_CON = #{post_con}, POST_CATE = #{cate_no}
+		WHERE POST_NO = #{post_no}
+	</update>
+	
+	<!-- Post 데이터 지우기 -->
+	<update id="deletePost" parameterType="hashmap">
+		UPDATE BLOG_POST
+		SET DEL_YN = 0
+		WHERE POST_NO = #{post_no}
+	</update>
+	
+	<!-- 메뉴 변동에 따른 Post 데이터 지우기 -->
+	<update id="deletePost_Menu" parameterType="hashmap">
+		UPDATE BLOG_POST
+		SET DEL_YN = 0
+		WHERE 1=1
+		<choose>
+			<when test="user_menu1 eq null">AND POST_CATE = 1</when>
+			<when test="user_menu2 eq null">AND POST_CATE = 2</when>
+			<when test="user_menu3 eq null">AND POST_CATE = 3</when>
+			<when test="user_menu4 eq null">AND POST_CATE = 4</when>
+			<when test="user_menu5 eq null">AND POST_CATE = 5</when>
+		</choose>
+		
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<update id="deleteUser" parameterType="hashmap">
+		UPDATE BLOG_USER
+		SET USER_DEL_YN = 0
+		WHERE USER_NO = #{user_no}
+	</update>
+	
+	<!-- Comment 개수 가져오기 -->
+	<select id="getCommCnt" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(*) AS CNT
+		FROM POST_COMM PC INNER JOIN BLOG_USER BU
+					   ON PC.USER_NO = BU.USER_NO
+					   AND BU.USER_DEL_YN = 1
+		WHERE PC.DEL_YN = 1 
+		AND PC.POST_NO = #{post_no}
+	</select>
+	
+	<!-- Comment 가져오기 -->
+	<select id="getCommData" parameterType="hashmap" resultType="hashmap">
+		SELECT BU.USER_ID, PC.COMM_CON, TO_CHAR(PC.COMM_DATE, 'YYYY.MM.DD HH:MM') AS COMM_DT, BU.USER_NO, PC.COMM_NO
+		FROM POST_COMM PC INNER JOIN BLOG_USER BU
+					   ON PC.USER_NO = BU.USER_NO
+					   AND BU.USER_DEL_YN = 1
+		WHERE PC.DEL_YN = 1 
+		AND PC.POST_NO = #{post_no}
+		ORDER BY PC.COMM_DATE DESC
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="addComm" parameterType="hashmap">
+		INSERT INTO POST_COMM(COMM_NO, POST_NO, USER_NO, COMM_CON)
+		VALUES (COMM_SEQ.NEXTVAL, #{post_no}, #{user_no}, #{comment_txt})
+	</insert>
+	
+	<!-- 댓글 삭제 -->
+	<update id="deleteComm" parameterType="hashmap">
+		UPDATE POST_COMM
+		SET DEL_YN = 0
+		WHERE COMM_NO = #{del_comm_no}
+	</update>
+</mapper>
