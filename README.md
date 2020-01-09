@@ -1,5 +1,5 @@
-#Blog-Example
-##Contributor
+# Blog-Example
+## Contributor
 - Roar-Song
 
-##How to Use
+## How to Use
