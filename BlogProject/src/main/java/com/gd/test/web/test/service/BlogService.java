@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gd.test.web.test.dao.IBlogDao;
-import com.gd.test.web.test.dao.ITestDao2;
 
 @Service
 public class BlogService implements IBlogService {
