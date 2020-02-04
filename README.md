@@ -19,3 +19,5 @@
 
 ## Preview
 ![blog_Test_01](https://user-images.githubusercontent.com/57061848/73727179-50775e00-4774-11ea-96fe-2fa9b49d8f88.PNG)
+![blog_Test_02](https://user-images.githubusercontent.com/57061848/73727232-67b64b80-4774-11ea-9196-028594a6aabd.PNG)
+![blog_Test_03](https://user-images.githubusercontent.com/57061848/73727233-67b64b80-4774-11ea-8163-c538412a04cc.PNG)
